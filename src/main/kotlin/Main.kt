@@ -4,7 +4,7 @@ import com.github.kotlintelegrambot.dispatcher.message
 import com.github.kotlintelegrambot.entities.ChatId
 import com.github.kotlintelegrambot.extensions.filters.Filter
 
-const val BOT_TOKEN = "8198999088:AAHTSvTRMuv-Y2TFV-jGI_uMz5e3RfHwqtk"
+private val BOT_TOKEN = System.getenv("BOT_TOKEN")
 fun main() {
     val bot = bot {
         token = BOT_TOKEN
