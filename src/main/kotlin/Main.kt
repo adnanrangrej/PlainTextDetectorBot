@@ -4,7 +4,7 @@ import com.github.kotlintelegrambot.dispatcher.message
 import com.github.kotlintelegrambot.entities.ChatId
 import com.github.kotlintelegrambot.extensions.filters.Filter
 
-private val BOT_TOKEN = System.getenv("BOT_TOKEN")
+private val BOT_TOKEN = System.getenv("BOT_TOKEN") ?: error("BOT_TOKEN environment variable is not set")
 fun main() {
     val bot = bot {
         token = BOT_TOKEN
