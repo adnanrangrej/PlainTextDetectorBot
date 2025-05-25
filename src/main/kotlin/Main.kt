@@ -13,7 +13,6 @@ fun main() {
             message(Filter.Text) {
 
                 println("Received message: ${message.text}")
-                val chatId = ChatId.fromId(message.chat.id)
 
                 // Ignore bot messages
                 if (message.from?.isBot == true) {
@@ -31,6 +30,7 @@ fun main() {
                 }
 
                 // Check if sender is admin
+                val chatId = ChatId.fromId(chat.id)
                 val admins = bot.getChatAdministrators(chatId).getOrNull()
                 val isAdmin = admins?.any {
                     it.user.id == message.from?.id
@@ -41,13 +41,19 @@ fun main() {
                     println("This message is from admin: ${message.from?.username}")
                     return@message
                 }
+
+                // Check if message contains a URL
                 val text = message.text
                 val doesContainUrl =
                     text?.contains(Regex("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]"))
+
+                // Ignore message if it contains a URL
                 if (doesContainUrl == true) {
                     println("This message contains a URL!")
                     return@message
                 }
+
+                // Finally delete the message
                 bot.deleteMessage(chatId, message.messageId)
                 println("Deleted message: Id: ${message.messageId} Text: ${message.text}")
             }
